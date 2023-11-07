@@ -11,8 +11,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.smy.ecommerce.entities.concretes.Category;
 import com.smy.ecommerce.service.abstracts.CategoryService;
+import com.smy.ecommerce.service.dtos.requests.post.PostCategoryRequest;
+import com.smy.ecommerce.service.dtos.requests.put.PutCategoryRequest;
+import com.smy.ecommerce.service.dtos.responses.get.GetCategoryResponse;
+import com.smy.ecommerce.service.dtos.responses.getAll.GetAllCategoryResponse;
+import com.smy.ecommerce.service.dtos.responses.post.PostCategoryResponse;
+import com.smy.ecommerce.service.dtos.responses.put.PutCategoryResponse;
 
 import lombok.AllArgsConstructor;
 
@@ -23,23 +28,23 @@ public class CategoriesController {
     private CategoryService service;
 
     @GetMapping
-    public List<Category> getAll() {
+    public List<GetAllCategoryResponse> getAll() {
         return this.service.getAll();
     }
 
     @GetMapping("/{id}")
-    public Category getById(@PathVariable int id) {
+    public GetCategoryResponse getById(@PathVariable int id) {
         return this.service.getById(id);
     }
 
     @PostMapping
-    public Category add(@RequestBody Category category) {
-        return this.service.add(category);
+    public PostCategoryResponse add(@RequestBody PostCategoryRequest request) {
+        return this.service.add(request);
     }
 
     @PutMapping
-    public Category update(@RequestBody Category category) {
-        return this.service.update(category);
+    public PutCategoryResponse update(@RequestBody PutCategoryRequest request) {
+        return this.service.update(request);
     }
 
     @DeleteMapping("/{id}")
