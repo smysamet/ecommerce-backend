@@ -2,16 +2,21 @@ package com.smy.ecommerce.service.abstracts;
 
 import java.util.List;
 
-import com.smy.ecommerce.entities.concretes.Category;
+import com.smy.ecommerce.service.dtos.requests.post.PostCategoryRequest;
+import com.smy.ecommerce.service.dtos.requests.put.PutCategoryRequest;
+import com.smy.ecommerce.service.dtos.responses.get.GetCategoryResponse;
+import com.smy.ecommerce.service.dtos.responses.getAll.GetAllCategoryResponse;
+import com.smy.ecommerce.service.dtos.responses.post.PostCategoryResponse;
+import com.smy.ecommerce.service.dtos.responses.put.PutCategoryResponse;
 
 public interface CategoryService {
-    List<Category> getAll();
+    List<GetAllCategoryResponse> getAll();
 
-    Category getById(int id);
+    GetCategoryResponse getById(int id);
 
-    Category add(Category category);
+    PostCategoryResponse add(PostCategoryRequest request);
 
-    Category update(Category category);
+    PutCategoryResponse update(PutCategoryRequest request);
 
     void deleteById(int id);
 }
