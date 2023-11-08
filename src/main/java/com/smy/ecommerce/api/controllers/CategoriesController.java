@@ -18,6 +18,8 @@ import com.smy.ecommerce.service.dtos.responses.get.GetCategoryResponse;
 import com.smy.ecommerce.service.dtos.responses.getAll.GetAllCategoryResponse;
 import com.smy.ecommerce.service.dtos.responses.post.PostCategoryResponse;
 import com.smy.ecommerce.service.dtos.responses.put.PutCategoryResponse;
+import com.smy.ecommerce.utils.results.DataResult;
+import com.smy.ecommerce.utils.results.Result;
 
 import lombok.AllArgsConstructor;
 
@@ -28,28 +30,28 @@ public class CategoriesController {
     private CategoryService service;
 
     @GetMapping
-    public List<GetAllCategoryResponse> getAll() {
+    public DataResult<List<GetAllCategoryResponse>> getAll() {
         return this.service.getAll();
     }
 
     @GetMapping("/{id}")
-    public GetCategoryResponse getById(@PathVariable int id) {
+    public DataResult<GetCategoryResponse> getById(@PathVariable int id) {
         return this.service.getById(id);
     }
 
     @PostMapping
-    public PostCategoryResponse add(@RequestBody PostCategoryRequest request) {
+    public DataResult<PostCategoryResponse> add(@RequestBody PostCategoryRequest request) {
         return this.service.add(request);
     }
 
     @PutMapping
-    public PutCategoryResponse update(@RequestBody PutCategoryRequest request) {
+    public DataResult<PutCategoryResponse> update(@RequestBody PutCategoryRequest request) {
         return this.service.update(request);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable int id) {
-        this.service.deleteById(id);
+    public Result deleteById(@PathVariable int id) {
+        return this.service.deleteById(id);
     }
 
 }
