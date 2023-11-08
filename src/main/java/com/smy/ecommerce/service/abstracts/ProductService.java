@@ -8,15 +8,17 @@ import com.smy.ecommerce.service.dtos.responses.get.GetProductResponse;
 import com.smy.ecommerce.service.dtos.responses.getAll.GetAllProductResponse;
 import com.smy.ecommerce.service.dtos.responses.post.PostProductResponse;
 import com.smy.ecommerce.service.dtos.responses.put.PutProductResponse;
+import com.smy.ecommerce.utils.results.DataResult;
+import com.smy.ecommerce.utils.results.Result;
 
 public interface ProductService {
-    List<GetAllProductResponse> getAll();
+    DataResult<List<GetAllProductResponse>> getAll();
 
-    GetProductResponse getById(int id);
+    DataResult<GetProductResponse> getById(int id);
 
-    PostProductResponse add(PostProductRequest product);
+    DataResult<PostProductResponse> add(PostProductRequest product);
 
-    PutProductResponse update(PutProductRequest product);
+    DataResult<PutProductResponse> update(PutProductRequest product);
 
-    void deleteById(int id);
+    Result deleteById(int id);
 }

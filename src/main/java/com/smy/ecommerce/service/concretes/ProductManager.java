@@ -14,6 +14,10 @@ import com.smy.ecommerce.service.dtos.responses.get.GetProductResponse;
 import com.smy.ecommerce.service.dtos.responses.getAll.GetAllProductResponse;
 import com.smy.ecommerce.service.dtos.responses.post.PostProductResponse;
 import com.smy.ecommerce.service.dtos.responses.put.PutProductResponse;
+import com.smy.ecommerce.utils.results.DataResult;
+import com.smy.ecommerce.utils.results.Result;
+import com.smy.ecommerce.utils.results.SuccessDataResult;
+import com.smy.ecommerce.utils.results.SuccessResult;
 
 import lombok.AllArgsConstructor;
 
@@ -25,7 +29,7 @@ public class ProductManager implements ProductService {
     private ModelMapper modelMapper;
 
     @Override
-    public List<GetAllProductResponse> getAll() {
+    public DataResult<List<GetAllProductResponse>> getAll() {
         List<Product> products = this.repository.findAll();
         List<GetAllProductResponse> response = products
                 .stream()
@@ -33,36 +37,47 @@ public class ProductManager implements ProductService {
                     return this.modelMapper.map(product, GetAllProductResponse.class);
                 })
                 .toList();
-        return response;
+
+        SuccessDataResult<List<GetAllProductResponse>> result = new SuccessDataResult<List<GetAllProductResponse>>(
+                response, "Products found!");
+        return result;
     }
 
     @Override
-    public GetProductResponse getById(int id) {
+    public DataResult<GetProductResponse> getById(int id) {
         Product product = this.repository.findById(id).get();
         GetProductResponse response = this.modelMapper.map(product, GetProductResponse.class);
-        return response;
+        SuccessDataResult<GetProductResponse> result = new SuccessDataResult<GetProductResponse>(response,
+                "Product found!");
+        return result;
     }
 
     @Override
-    public PostProductResponse add(PostProductRequest request) {
+    public DataResult<PostProductResponse> add(PostProductRequest request) {
         Product product = this.modelMapper.map(request, Product.class);
         product.setId(0);
         product = this.repository.save(product);
         PostProductResponse response = this.modelMapper.map(product, PostProductResponse.class);
-        return response;
+        SuccessDataResult<PostProductResponse> result = new SuccessDataResult<PostProductResponse>(response,
+                "Product added!");
+        return result;
     }
 
     @Override
-    public PutProductResponse update(PutProductRequest request) {
+    public DataResult<PutProductResponse> update(PutProductRequest request) {
         Product product = this.modelMapper.map(request, Product.class);
         product = this.repository.save(product);
         PutProductResponse response = this.modelMapper.map(product, PutProductResponse.class);
-        return response;
+        SuccessDataResult<PutProductResponse> result = new SuccessDataResult<PutProductResponse>(response,
+                "Product updated!");
+        return result;
     }
 
     @Override
-    public void deleteById(int id) {
+    public Result deleteById(int id) {
         this.repository.deleteById(id);
+        SuccessResult result = new SuccessResult("Product deleted!");
+        return result;
     }
 
 }
