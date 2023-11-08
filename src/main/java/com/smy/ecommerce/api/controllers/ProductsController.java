@@ -18,6 +18,8 @@ import com.smy.ecommerce.service.dtos.responses.get.GetProductResponse;
 import com.smy.ecommerce.service.dtos.responses.getAll.GetAllProductResponse;
 import com.smy.ecommerce.service.dtos.responses.post.PostProductResponse;
 import com.smy.ecommerce.service.dtos.responses.put.PutProductResponse;
+import com.smy.ecommerce.utils.results.DataResult;
+import com.smy.ecommerce.utils.results.Result;
 
 import lombok.AllArgsConstructor;
 
@@ -28,27 +30,27 @@ public class ProductsController {
     private ProductService service;
 
     @GetMapping
-    public List<GetAllProductResponse> getAll() {
+    public DataResult<List<GetAllProductResponse>> getAll() {
         return this.service.getAll();
     }
 
     @GetMapping("/{id}")
-    public GetProductResponse getById(@PathVariable int id) {
+    public DataResult<GetProductResponse> getById(@PathVariable int id) {
         return this.service.getById(id);
     }
 
     @PostMapping
-    public PostProductResponse add(@RequestBody PostProductRequest request) {
+    public DataResult<PostProductResponse> add(@RequestBody PostProductRequest request) {
         return this.service.add(request);
     }
 
     @PutMapping
-    public PutProductResponse update(@RequestBody PutProductRequest request) {
+    public DataResult<PutProductResponse> update(@RequestBody PutProductRequest request) {
         return this.service.update(request);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable int id) {
-        this.service.deleteById(id);
+    public Result deleteById(@PathVariable int id) {
+        return this.service.deleteById(id);
     }
 }
