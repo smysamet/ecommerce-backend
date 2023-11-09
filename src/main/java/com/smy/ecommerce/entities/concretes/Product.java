@@ -27,6 +27,8 @@ public class Product {
 
     private double unitPrice;
 
+    private String imageUrl;
+
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
