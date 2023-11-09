@@ -14,5 +14,6 @@ public class PutProductResponse {
     private String name;
     private String description;
     private double unitPrice;
+    private String imageUrl;
     private int categoryId;
 }

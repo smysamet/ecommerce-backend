@@ -13,5 +13,6 @@ public class PostProductRequest {
     private String name;
     private String description;
     private double unitPrice;
+    private String imageUrl;
     private int categoryId;
 }
